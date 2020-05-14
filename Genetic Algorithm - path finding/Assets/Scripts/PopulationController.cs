@@ -12,13 +12,18 @@ public class PopulationController : MonoBehaviour
 
     public int populationSize = 100;
 
-    public int genomLength;
+    public int genomLength = 50;
 
     public float cutoff = 0.3f;
 
     public Transform SpawnPoint;
 
     public Transform End;
+
+    public int survivorKeep = 5;
+
+    [Range(0f,1f)]
+    public float mutationRate;
     #endregion
 
     private void Start()
@@ -41,7 +46,7 @@ public class PopulationController : MonoBehaviour
         {
             GameObject GO = Instantiate(creaturePrefab, SpawnPoint.position, Quaternion.identity);
 
-            GO.GetComponent<Genompathfinder>().initCreature(new DNA(genomLength = 50 ), End.position);
+            GO.GetComponent<Genompathfinder>().initCreature(new DNA(genomLength), End.position);
 
             population.Add(GO.GetComponent<Genompathfinder>());
         }
@@ -65,6 +70,12 @@ public class PopulationController : MonoBehaviour
 
         population.Clear();
 
+        for(int i = 0; i < survivorKeep; i ++ )
+        {
+            GameObject GO = Instantiate(creaturePrefab, SpawnPoint.position, Quaternion.identity);
+            GO.GetComponent<Genompathfinder>().initCreature(survivors[i].dna, End.position);
+            population.Add(GO.GetComponent<Genompathfinder>());
+        }
 
         while(population.Count < populationSize)
         {
@@ -72,7 +83,7 @@ public class PopulationController : MonoBehaviour
             {
                 GameObject GO = Instantiate(creaturePrefab, SpawnPoint.position, Quaternion.identity);
 
-                GO.GetComponent<Genompathfinder>().initCreature(new DNA(survivors[i].dna, survivors[Random.Range(0,10)].dna),End.position);
+                GO.GetComponent<Genompathfinder>().initCreature(new DNA(survivors[i].dna, survivors[Random.Range(0,10)].dna, this.mutationRate),End.position);
 
                 population.Add(GO.GetComponent<Genompathfinder>());
 
