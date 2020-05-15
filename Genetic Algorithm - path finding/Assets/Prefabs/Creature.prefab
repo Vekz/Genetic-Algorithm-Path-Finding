@@ -96,8 +96,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96d31ae8b97d0d142aefc887d53bdbc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  creatureSpeed: 1000
-  pathMultiplier: 14
+  creatureSpeed: 900
+  pathMultiplier: 10
   hasFinished: 0
   hasInitialized: 0
   rotationSpeed: 20

@@ -16,11 +16,17 @@ public class PopulationController : MonoBehaviour
 
     public float cutoff = 0.3f;
 
+    public bool EnableScreenShots = false;
+
     public Transform SpawnPoint;
 
     public Transform End;
 
     public int survivorKeep = 5;
+
+    public string screenShotFilepath = @"Screenshot";
+
+    private int genNumber = 0;
 
     [Range(0f,1f)]
     public float mutationRate;
@@ -35,7 +41,10 @@ public class PopulationController : MonoBehaviour
     {
         if(!hasActive())
         {
+            if(EnableScreenShots)
+                StartCoroutine(WaitAndScreen());
             NextGeneration();
+            genNumber++;
         }
     }
 
@@ -134,6 +143,14 @@ public class PopulationController : MonoBehaviour
         }
 
         return false;
+    }
+
+
+    IEnumerator  WaitAndScreen()
+    {
+        yield return new WaitForSeconds(1);
+
+        ScreenCapture.CaptureScreenshot(@screenShotFilepath + genNumber.ToString() + ".png");
     }
 
 }
