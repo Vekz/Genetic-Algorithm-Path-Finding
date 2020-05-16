@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using OxyPlot.Series;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +8,10 @@ public class PopulationController : MonoBehaviour
 
     #region Fields
     List<Genompathfinder> population = new List<Genompathfinder>();
+
+    List<List<float>> heritage = new List<List<float>>();
+
+    private int generationNumber = 0;
 
     public GameObject creaturePrefab;
 
@@ -65,6 +70,8 @@ public class PopulationController : MonoBehaviour
     {
         List<Genompathfinder> survivors = new List<Genompathfinder>();
 
+        ScribeHeritage();
+
         int survivalCut = Mathf.RoundToInt(populationSize*cutoff);
 
         for(int i = 0; i < survivalCut; i ++)
@@ -107,6 +114,8 @@ public class PopulationController : MonoBehaviour
         {
             Destroy(survivors[i].gameObject);
         }
+
+        generationNumber++;
     }
 
     Genompathfinder getFittest()
@@ -151,6 +160,22 @@ public class PopulationController : MonoBehaviour
         yield return new WaitForSeconds(1);
 
         ScreenCapture.CaptureScreenshot(@screenShotFilepath + genNumber.ToString() + ".png");
+    }
+
+    private void ScribeHeritage()
+    {
+        heritage.Add(new List<float>());
+        foreach(Genompathfinder creature in population)
+        {
+            heritage[generationNumber].Add(creature.fitness);
+        }
+    }
+    
+    public void makePlots()
+    {
+        PlottingClass plots = new PlottingClass();
+
+        plots.AverageFitnessPerGeneration(heritage);
     }
 
 }
