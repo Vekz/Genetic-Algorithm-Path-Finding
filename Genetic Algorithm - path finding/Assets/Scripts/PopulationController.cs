@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using OxyPlot.Series;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,6 +22,11 @@ public class PopulationController : MonoBehaviour
     public int survivorKeep = 5; //Number of the best creatures to keep without change for the next generation
     public Transform SpawnPoint; //Spawn point of the creatures
     public Transform End; //End target for every creature
+    #endregion
+
+    #region Plotting variables
+    List<List<float>> heritage = new List<List<float>>();
+    private int generationNumber = 0;
     #endregion
 
     #region Screenshot variables
@@ -76,6 +82,8 @@ public class PopulationController : MonoBehaviour
     {
         List<Genompathfinder> survivors = new List<Genompathfinder>(); //List of surviving creatures
 
+        ScribeHeritage();
+
         int survivalCut = Mathf.RoundToInt(populationSize*cutoff); //Number of creatures to keep in population
 
         for(int i = 0; i < survivalCut; i ++) //For number of creature to keep
@@ -118,6 +126,8 @@ public class PopulationController : MonoBehaviour
         {
             Destroy(survivors[i].gameObject); //Destroy Unity Object for creature
         }
+
+        generationNumber++;
     }
 
     /// <summary>
@@ -168,6 +178,22 @@ public class PopulationController : MonoBehaviour
         yield return new WaitForSeconds(1);
 
         ScreenCapture.CaptureScreenshot(@screenShotFilepath + genNumber.ToString() + ".png");
+    }
+
+    private void ScribeHeritage()
+    {
+        heritage.Add(new List<float>());
+        foreach(Genompathfinder creature in population)
+        {
+            heritage[generationNumber].Add(creature.fitness);
+        }
+    }
+    
+    public void makePlots()
+    {
+        PlottingClass plots = new PlottingClass();
+
+        plots.AverageFitnessPerGeneration(heritage);
     }
     #endregion
 }
