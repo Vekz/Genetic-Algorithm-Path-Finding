@@ -22,6 +22,7 @@ public class PopulationController : MonoBehaviour
     public int survivorKeep = 5; //Number of the best creatures to keep without change for the next generation
     public Transform SpawnPoint; //Spawn point of the creatures
     public Transform End; //End target for every creature
+    bool hasStartedSim;
     #endregion
 
     #region Plotting variables
@@ -38,19 +39,11 @@ public class PopulationController : MonoBehaviour
 
     #region Methods
     /// <summary>
-    /// Start method that is called in beggining of the application
-    /// </summary>
-    private void Start()
-    {
-        InitPopulation();
-    }
-
-    /// <summary>
     /// Method updated every frame that iterates the generations and makes screenshots for every generation
     /// </summary>
     private void Update()
     {
-        if(!hasActive()) //If current generation doesn't have active creatures
+        if(!hasActive() && hasStartedSim) //If current generation doesn't have active creatures
         {
             if(EnableScreenShots) //If screenshots enabled
                 StartCoroutine(WaitAndScreen()); //Wait for the screenshot
@@ -62,9 +55,8 @@ public class PopulationController : MonoBehaviour
     /// <summary>
     /// Initialize population
     /// </summary>
-    void InitPopulation()
+    public void InitPopulation()
     {
-
         for(int i = 0; i < populationSize;i++) //For size of the population
         {
             GameObject GO = Instantiate(creaturePrefab, SpawnPoint.position, Quaternion.identity); //Create Unity Object with creaturePrefab @ spawnPoint position and with default rotation
@@ -73,6 +65,7 @@ public class PopulationController : MonoBehaviour
 
             population.Add(GO.GetComponent<Genompathfinder>()); //Add creature to population list
         }
+        hasStartedSim = true;
     }
 
     /// <summary>
