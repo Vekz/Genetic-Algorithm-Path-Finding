@@ -45,12 +45,13 @@ public class PopulationController : MonoBehaviour
     /// <summary>
     /// Method updated every frame that iterates the generations and makes screenshots for every generation
     /// </summary>
+    /// 
     private void Update()
     {
         if(!hasActive() && hasStartedSim) //If current generation doesn't have active creatures
         {
-            if(EnableScreenShots) //If screenshots enabled
-                StartCoroutine(WaitAndScreen()); //Wait and make the screenshot
+            if (EnableScreenShots) //If screenshots enabled
+                MakeSS(); //Wait and make the screenshot
             NextGeneration(); //Iterate the generation
             genNumber++; //Iterate the generation number
         }
@@ -194,6 +195,11 @@ public class PopulationController : MonoBehaviour
         PlottingClass plots = new PlottingClass();
 
         plots.AverageFitnessPerGeneration(heritage);
+    }
+
+    public void MakeSS()
+    {
+        StartCoroutine(WaitAndScreen());
     }
 
     public void ShowTheBestCreature()

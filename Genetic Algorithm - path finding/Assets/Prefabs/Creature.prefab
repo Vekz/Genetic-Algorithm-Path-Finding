@@ -99,8 +99,9 @@ MonoBehaviour:
   creatureSpeed: 900
   pathMultiplier: 10
   hasFinished: 0
-  hasInitialized: 0
+  targetRotation: {x: 0, y: 0, z: 0, w: 0}
   rotationSpeed: 20
+  TravelledPath: []
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -148,13 +149,13 @@ LineRenderer:
   m_Positions: []
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.2
+    widthMultiplier: 0.5
     widthCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
-        value: 0.9999943
+        time: 0.0026397705
+        value: 1
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -163,7 +164,7 @@ LineRenderer:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
-        value: 0.9058819
+        value: 0.8058834
         inSlope: 0
         outSlope: 0
         tangentMode: 0
