@@ -21,6 +21,7 @@ public class SlidersControllers : MonoBehaviour
         popCon.cutoff = CutoffSlider.value;
         popCon.mutationRate = MutationRateSlider.value;
         popCon.survivorKeep = Mathf.FloorToInt(surviovrsKeepSlider.value);
+
     }
 
     public void setPopulationSize()

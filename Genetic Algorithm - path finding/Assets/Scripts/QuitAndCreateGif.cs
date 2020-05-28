@@ -13,6 +13,7 @@ public class QuitAndCreateGif : MonoBehaviour
     public void quit()
     {
         popCon.makePlots();
+        popCon.ShowTheBestCreature();
         Time.timeScale = Mathf.Approximately(Time.timeScale, 0.0f) ? 1.0f : 0.0f;
         Application.Quit();
     }

@@ -1,6 +1,7 @@
 ﻿using OxyPlot.Series;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 /// <summary>
@@ -23,6 +24,8 @@ public class PopulationController : MonoBehaviour
     public Transform SpawnPoint; //Spawn point of the creatures
     public Transform End; //End target for every creature
     bool hasStartedSim;
+
+    private Genompathfinder BestCritter = null;
     #endregion
 
     #region Plotting variables
@@ -35,6 +38,7 @@ public class PopulationController : MonoBehaviour
     public string screenShotFilepath = @"Screenshot"; //Filepath for the screenshots to be stored in
     private int genNumber = 0; //Number of the current generation
     #endregion
+
     #endregion
 
     #region Methods
@@ -46,7 +50,7 @@ public class PopulationController : MonoBehaviour
         if(!hasActive() && hasStartedSim) //If current generation doesn't have active creatures
         {
             if(EnableScreenShots) //If screenshots enabled
-                StartCoroutine(WaitAndScreen()); //Wait for the screenshot
+                StartCoroutine(WaitAndScreen()); //Wait and make the screenshot
             NextGeneration(); //Iterate the generation
             genNumber++; //Iterate the generation number
         }
@@ -84,6 +88,9 @@ public class PopulationController : MonoBehaviour
             survivors.Add(getFittest()); //Get creature with greatest fittnes and append it to survivors list
         }
 
+        BestCritter = survivors[0];
+
+
         for(int i = 0; i < population.Count; i ++ ) //For every creature in population
         {
             Destroy(population[i].gameObject); //Destroy Unity Object for creature
@@ -110,7 +117,7 @@ public class PopulationController : MonoBehaviour
 
                 if (population.Count >= populationSize) //If number of creatures in population greater or equal than populationSize
                 {
-                    break; //Break to not create too much creatures
+                    break; //Break to not create too many creatures
                 }
             }
         }
@@ -187,6 +194,19 @@ public class PopulationController : MonoBehaviour
         PlottingClass plots = new PlottingClass();
 
         plots.AverageFitnessPerGeneration(heritage);
+    }
+
+    public void ShowTheBestCreature()
+    {
+
+        for (int i = 0; i < population.Count; i++) //For every creature in population
+        {
+            Destroy(population[i].gameObject); //Destroy Unity Object for creature
+        }
+
+        GameObject GO = Instantiate(creaturePrefab, BestCritter.TravelledPath[BestCritter.TravelledPath.Count-1], BestCritter.targetRotation); //Create Unity Object with creaturePrefab @ spawnPoint position and with default rotation
+
+        GO.GetComponent<Genompathfinder>().InitCorpse(BestCritter.TravelledPath);
     }
     #endregion
 }

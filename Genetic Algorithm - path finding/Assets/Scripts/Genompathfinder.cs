@@ -26,10 +26,10 @@ public class Genompathfinder : MonoBehaviour
     #endregion
 
     #region Esthetics variables
-    Quaternion targetRotation; //Rotation of the creature in the aim of the next step #esthetics
+    public Quaternion targetRotation; //Rotation of the creature in the aim of the next step #esthetics
     public float rotationSpeed; //Speed of the rotation translation #esthetics
     LineRenderer LR; //Renderer of the line behind creature through its path #esthetics
-    List<Vector2> TravelledPath = new List<Vector2>(); //List of visited points #esthetics
+   public  List<Vector2> TravelledPath = new List<Vector2>(); //List of visited points #esthetics
     #endregion
 
     #region Fitness variables
@@ -101,7 +101,15 @@ public class Genompathfinder : MonoBehaviour
         LR.positionCount = LinePoints.Count; 
         LR.SetPositions(LinePoints.ToArray()); //Set positions of rendered line points to positions of points visited by creature
     }
+    
+    public void InitCorpse(List<Vector2> path)
+    {
+        TravelledPath = path;
+        hasInitialized = false;
+        LR = GetComponent<LineRenderer>();
+        RenderLine();
 
+    }
     /// <summary>
     /// Method called every frame.
     /// Updates status of the creature.
@@ -131,7 +139,7 @@ public class Genompathfinder : MonoBehaviour
             {
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime); //Creature rotates itself to face next point with rotation speed of rotationSpeed times deltaTime
             }
-        RenderLine(); //Render line through points visited by the creature
+        RenderLine(); //Render line through points visited by the creatures
         }
     }
           
