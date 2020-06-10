@@ -34,7 +34,7 @@ public class Genompathfinder : MonoBehaviour
 
     #region Fitness variables
     public LayerMask obstacleLayer; //Layer of obstacles in the scene
-    public float winBias = 2f; //Determines the fitness bonus for those creatures that touched the target.
+    public float winBias = 1.15f; //Determines the fitness bonus for those creatures that touched the target.
     public float crashPenalty = 0.7f; //Penalty for crashing into wall
     bool hasCrashed = false; //Has creature crashed into the wall?
     private bool hasWon = false; //Has creature touched the target?
