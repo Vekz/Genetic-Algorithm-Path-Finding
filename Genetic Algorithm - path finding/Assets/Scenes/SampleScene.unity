@@ -941,6 +941,7 @@ GameObject:
   - component: {fileID: 514283314}
   - component: {fileID: 514283313}
   - component: {fileID: 514283312}
+  - component: {fileID: 514283311}
   m_Layer: 5
   m_Name: ButtonStart
   m_TagString: Untagged
@@ -968,6 +969,25 @@ RectTransform:
   m_AnchoredPosition: {x: 117.899994, y: -18}
   m_SizeDelta: {x: 55.339783, y: 21.089478}
   m_Pivot: {x: 0.49999994, y: 0.49999988}
+--- !u!114 &514283311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 514283309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 201e17a1782a20c4faeec965b95419e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PopCon: {fileID: 931458489}
+  Sliders:
+  - {fileID: 1502017695}
+  - {fileID: 349533388}
+  - {fileID: 486430812}
+  - {fileID: 1298109889}
+  - {fileID: 838839546}
 --- !u!114 &514283312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1011,9 +1031,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 931458489}
-        m_MethodName: InitPopulation
-        m_Mode: 1
+      - m_Target: {fileID: 514283312}
+        m_MethodName: set_interactable
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1022,9 +1042,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 514283312}
-        m_MethodName: set_interactable
-        m_Mode: 6
+      - m_Target: {fileID: 514283311}
+        m_MethodName: StartSimulation
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1679,7 +1699,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   creaturePrefab: {fileID: 3071679217180281469, guid: 648f97f0a667aa948af1dc6e70f168b7,
     type: 3}
-  populationSize: 0
+  populationSize: 1
   genomLength: 70
   cutoff: 0.1
   mutationRate: 0.145
@@ -2178,6 +2198,8 @@ GameObject:
   - component: {fileID: 1261293623}
   - component: {fileID: 1261293622}
   - component: {fileID: 1261293621}
+  - component: {fileID: 1261293626}
+  - component: {fileID: 1261293625}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -2271,6 +2293,34 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1261293625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1261293620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 201e17a1782a20c4faeec965b95419e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PopCon: {fileID: 0}
+  Sliders: []
+--- !u!114 &1261293626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1261293620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 201e17a1782a20c4faeec965b95419e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PopCon: {fileID: 0}
+  Sliders: []
 --- !u!224 &1298109888 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8217865349451479135, guid: 8e0999b06781bcc4b8a551ad42c307ba,
